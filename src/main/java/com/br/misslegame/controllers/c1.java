@@ -11,7 +11,7 @@ public class c1 {
 
     @GetMapping("/firstgame")
     public ResponseEntity<JSONObject> c1 (){
-
+        return ResponseEntity.ok();
     }
 
 }
