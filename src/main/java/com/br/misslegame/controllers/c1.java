@@ -1,12 +1,16 @@
 package com.br.misslegame.controllers;
 
+import org.json.simple.JSONObject;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/v1/")
 public class c1 {
-    @RequestMapping("api/v1/")
-    public ResponseEntity c1 (){
+
+    @GetMapping("/firstgame")
+    public ResponseEntity<JSONObject> c1 (){
 
     }
 
