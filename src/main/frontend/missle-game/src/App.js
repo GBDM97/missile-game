@@ -14,9 +14,20 @@ fetchData();
 
   return (
     <>
-        {current.firstName} <br></br>
+        {/* {current.firstName} <br></br>
         {current.lastName} <br></br>
-        {current.description} <br></br>
+        {current.description} <br></br> */}
+        <div className="mainView">
+          <div className='missle1'>
+            <p style={{fontSize: "30px", 
+                        color: "white", 
+                        backgroundColor: "transparent", 
+                        position: "absolute",
+                        top: "-22.50px",
+                        left: "-4px"}}>></p>
+            <p style={{color: "white", position: "absolute"}}>></p>
+          </div>
+        </div>
     </>
   );
 }
