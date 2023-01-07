@@ -2,6 +2,7 @@ package com.br.misslegame.controllers;
 
 import org.json.simple.JSONObject;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,8 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class c1 {
 
     @GetMapping("/firstgame")
-    public ResponseEntity<JSONObject> c1 (){
-        return ResponseEntity.ok();
+    public ResponseEntity<String> c1 (){
+        return ResponseEntity.ok("ok");
     }
-
 }
