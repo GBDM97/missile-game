@@ -2,10 +2,10 @@ package com.br.misslegame;
 
 import java.util.Objects;
 
-import org.springframework.data.annotation.Id;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
 @Entity
 public class Employee {
@@ -15,7 +15,7 @@ public class Employee {
 	private String lastName;
 	private String description;
 
-	private Employee() {}
+	// private Employee() {}
 
 	public Employee(String firstName, String lastName, String description) {
 		this.firstName = firstName;

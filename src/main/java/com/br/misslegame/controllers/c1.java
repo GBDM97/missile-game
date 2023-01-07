@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class c1 {
 
     @GetMapping("/firstgame")
-    public ResponseEntity<String> c1 (){
+    public ResponseEntity<String> cc1 (){
         return ResponseEntity.ok("ok");
     }
 }
