@@ -19,4 +19,9 @@ public class c1 {
         Employee employee = new Employee("Ghianzao", "Morelli", "The best");
         return ResponseEntity.ok(employee);
     }
+
+    @Postmapping("/postPerson")
+    @CrossOrigin (origins = "http://localhost:8081")
+    
+    
 }
