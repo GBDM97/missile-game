@@ -18,7 +18,7 @@ fetchData();
       let px = "px";
       let right = i + px;
       setSt({backgroundColor: 'transparent', position:'absolute', top:'100px', right: right })
-      i = i - 3;
+      i = i - 1;
       if (i > 0){setTimeout(sendMissle, 100);}
   }
     
