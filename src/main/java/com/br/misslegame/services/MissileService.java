@@ -13,20 +13,20 @@ public class MissileService {
     public static Integer create(Missile missile){
         i = i + 1;
         missiles[i] = missile;
-        MissileService.move(i);
+        CompletableFuture.runAsync(() -> {
+            MissileService.move(i);
+        });
         return i;
     };
     private static void move(Integer number) {
         for (;  missiles[number].currentX != missiles[number].targetX && missiles[number].currentY != missiles[number].targetY;) {
-            CompletableFuture.delayedExecutor(1, TimeUnit.SECONDS).execute(() -> {
                 missiles[number].currentX = missiles[number].currentX + 1;
                 missiles[number].currentY = missiles[number].currentY - 1;
-              });
+                try{Thread.sleep(4000);}catch(Exception e){System.out.println(e);} 
         }
         missiles[number].blowUp = true;
-        CompletableFuture.delayedExecutor(4, TimeUnit.SECONDS).execute(() -> {
-            missiles[number] = null;
-          });
+        try{Thread.sleep(4000);}catch(Exception e){System.out.println(e);}
+        missiles[number] = null;
     }
     public static Missile locate(Integer i){
         if (missiles[i] != null){return missiles[i];}
