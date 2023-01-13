@@ -19,6 +19,7 @@ public class MissileService {
         return i;
     };
     private static void move(Integer number) {
+        MissileService.findDirection(number);
         for (;  missiles[number].currentX != missiles[number].targetX && missiles[number].currentY != missiles[number].targetY;) {
                 missiles[number].currentX = missiles[number].currentX + 1;
                 missiles[number].currentY = missiles[number].currentY - 1;
@@ -28,6 +29,7 @@ public class MissileService {
         try{Thread.sleep(4000);}catch(Exception e){System.out.println(e);}
         missiles[number] = null;
     }
+
     public static Missile locate(Integer i){
         if (missiles[i] != null){return missiles[i];}
         else {return null;}
@@ -41,4 +43,8 @@ public class MissileService {
             return false;
         }
     };
+
+    private static void findDirection(Integer number) {
+        
+    }
 }
