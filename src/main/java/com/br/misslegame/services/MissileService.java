@@ -17,7 +17,7 @@ public class MissileService {
         return i;
     };
     private static void move(Integer number) {
-        for (;  missiles[number].currentX == missiles[number].targetX && missiles[number].currentY == missiles[number].targetY;) {
+        for (;  missiles[number].currentX != missiles[number].targetX && missiles[number].currentY != missiles[number].targetY;) {
             CompletableFuture.delayedExecutor(1, TimeUnit.SECONDS).execute(() -> {
                 missiles[number].currentX = missiles[number].currentX + 1;
                 missiles[number].currentY = missiles[number].currentY - 1;
@@ -28,7 +28,7 @@ public class MissileService {
             missiles[number] = null;
           });
     }
-    public static Missile locate(int i){
+    public static Missile locate(Integer i){
         if (missiles[i] != null){return missiles[i];}
         else {return null;}
         
