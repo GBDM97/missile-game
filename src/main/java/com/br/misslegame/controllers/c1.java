@@ -1,6 +1,7 @@
 package com.br.misslegame.controllers;
 
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,13 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.misslegame.Employee;
-import com.br.misslegame.models.NewLoc;
+import com.br.misslegame.models.Missile;
+import com.br.misslegame.services.MissileService;
 
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/v1")
 public class c1 {
+    @Autowired
+    MissileService missileService;
 
     @GetMapping("/employees")
     @CrossOrigin (origins = "http://localhost:8081")
@@ -25,18 +29,32 @@ public class c1 {
         return ResponseEntity.ok(employee);
     }
 
-    NewLoc backNewLoc = new NewLoc();
-    @PostMapping("/postNewLoc")
+    @PostMapping("/postMissile")
     @CrossOrigin (origins = "http://localhost:8081")
-    public ResponseEntity<String> newLoc(@Valid @RequestBody NewLoc newLoc) {
-        backNewLoc.setXInit(newLoc.getXInit());
-        backNewLoc.setYInit(newLoc.getYInit());
-        return ResponseEntity.ok("ok");
+    public ResponseEntity<Object> newLoc(@Valid @RequestBody Missile missile) {
+        // MissileService.create(missile.initX, missile.initY, missile.targetX, missile.targetY);
+        missile.setId(2);
+        Object[] missiles = new Object[1000];
+        missiles[0] = missile;
+        // missile.setInitX(missile.getInitX());
+        // missile.setInitY(missile.getInitY());
+        missile.setId(20);
+        return ResponseEntity.ok(missile);
     }
 
-    @GetMapping("/getCurrentLoc")
+    @GetMapping("/getTest")
     @CrossOrigin (origins = "http://localhost:8081")
-    public ResponseEntity<
+    public ResponseEntity<Integer> gt (){
+        return ResponseEntity.ok(200);
+    }
+
+    // @PostMapping("/getCurrentLoc")
+    // @CrossOrigin (origins = "http://localhost:8081")
+    // public ResponseEntity<Boolean> newLoc(@Valid @RequestBody Integer missileNumber) {
+    //     backNewLoc.setinitX(newLoc.getinitX());
+    //     backNewLoc.setinitY(newLoc.getinitY());
+    //     return ResponseEntity.ok(back);
+    // }
     
     
 }
