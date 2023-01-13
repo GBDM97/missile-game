@@ -32,14 +32,7 @@ public class c1 {
     @PostMapping("/postMissile")
     @CrossOrigin (origins = "http://localhost:8081")
     public ResponseEntity<Object> newLoc(@Valid @RequestBody Missile missile) {
-        // MissileService.create(missile.initX, missile.initY, missile.targetX, missile.targetY);
-        missile.setId(2);
-        Object[] missiles = new Object[1000];
-        missiles[0] = missile;
-        // missile.setInitX(missile.getInitX());
-        // missile.setInitY(missile.getInitY());
-        missile.setId(20);
-        return ResponseEntity.ok(missile);
+        return ResponseEntity.ok(MissileService.create(missile));
     }
 
     @GetMapping("/getTest")
