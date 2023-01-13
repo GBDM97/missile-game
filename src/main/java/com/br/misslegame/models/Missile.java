@@ -20,8 +20,8 @@ public class Missile {
     public Integer targetY;
 
     public Integer id;
-    public float currentX;
-    public float currentY;
+    public Integer currentX;
+    public Integer currentY;
     public float currentDir;
     public boolean blowUp = false;
 }
