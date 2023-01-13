@@ -29,10 +29,12 @@ public class c1 {
         return ResponseEntity.ok(employee);
     }
 
-    @PostMapping("/postMissile")
+    @PostMapping("/createOrLocate")
     @CrossOrigin (origins = "http://localhost:8081")
     public ResponseEntity<Object> newLoc(@Valid @RequestBody Missile missile) {
-        return ResponseEntity.ok(MissileService.create(missile));
+        if (missile.getId() != null){
+            return ResponseEntity.ok(MissileService.locate(missile.id));
+        }else{return ResponseEntity.ok(MissileService.create(missile));}
     }
 
     @GetMapping("/getTest")

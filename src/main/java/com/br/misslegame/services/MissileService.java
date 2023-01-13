@@ -16,18 +16,29 @@ public class MissileService {
         MissileService.move(i);
         return i;
     };
-    private static Missile move(Integer number) {
-        for (;  missiles[number].currentX == missiles[number].targetX || missiles[number].currentY == missiles[number].targetY;) {
+    private static void move(Integer number) {
+        for (;  missiles[number].currentX == missiles[number].targetX && missiles[number].currentY == missiles[number].targetY;) {
             CompletableFuture.delayedExecutor(1, TimeUnit.SECONDS).execute(() -> {
-                missile.currentX = missile.currentX + 1;
-                missile.currentY = missile.currentY - 1;
-
+                missiles[number].currentX = missiles[number].currentX + 1;
+                missiles[number].currentY = missiles[number].currentY - 1;
               });
-            
         }
-        return missile;
+        missiles[number].blowUp = true;
+        CompletableFuture.delayedExecutor(4, TimeUnit.SECONDS).execute(() -> {
+            missiles[number] = null;
+          });
     }
-    public static void loc(){
+    public static Missile locate(int i){
+        if (missiles[i] != null){return missiles[i];}
+        else {return null;}
+        
+    };
 
+    public static boolean exist(int i){
+        if (missiles[i] != null) {
+            return true;
+        } else {
+            return false;
+        }
     };
 }
