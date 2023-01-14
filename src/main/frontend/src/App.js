@@ -1,89 +1,72 @@
-import './App.css';
-import React from 'react';
-import axios from 'axios';
+import React, { Component } from 'react';
 import { useEffect } from 'react';
+import './App.css'
 
-function App() {
-  const [mouseX, setMouseX] = React.useState();
-  const [mouseY, setMouseY] = React.useState();
-  const [initX, setInitX] = React.useState();
-  const [initY, setInitY] = React.useState();
-  const [currentStyle, setStyle] = React.useState();
-  const [currentStyle2, setStyle2] = React.useState({display: "none"});
-  const [currentC, setC] = React.useState(1);
-  const [currentStyle3, setStyle3] = React.useState({display: "none"});
-  const [currentBlow, setBlow] = React.useState(false);
+class App extends Component {
 
-  var id;
-  async function createMissle() {
-      var body = ({initX:initX, initY:initY, targetX:mouseX, targetY:mouseY});
-      axios.post('http://localhost:8080/api/v1/createOrLocate', body)
-      .then((res) => {id = res.data.id; alert(id);
-          for (; res.data.blowUp === false;) {
-              var body2 = {id:id};
-              axios.post('http://localhost:8080/api/v1/createOrLocate', body2)
-              
-                alert("rendering")
-                App();
-                  setStyle3({
-                    width: "50px",
-                    height: "2px",
-                    backgroundColor: "transparent",
-                    position: "absolute",
-                    top: res.data.currentX,
-                    left: res.data.currentY,
-                });
-              
-          }
-      })
+    constructor(props) {
+        super(props);
+        this.state = {
+            initX: 0,
+            initY: 0,
+            mouseX: 0,
+            mouseY: 0,
+            targetX: 0,
+            targetY: 0,
+            click: 0,
+            firstPoint: "none",
+            secPoint: "none"
+        };
+      }
+
+    click = () => {
+        console.log(this.state.mouseX)
+        if (this.state.click === 0){
+            this.setState({click: 1});
+            this.setState({initX: this.state.mouseX});
+            this.setState({initY: this.state.mouseY});
+            this.setState({firstPoint: "flex"});
+        }
+        if (this.state.click === 1){
+            this.setState({click: 0});
+            this.setState({targetX: this.state.mouseX});
+            this.setState({targetY: this.state.mouseY});
+            this.setState({secPoint: "flex"});
+        }
     }
-  const continuee = () => {
-    createMissle();
-  }
-  const sendMissle = () => {
-      if (currentC === 1) {
-        setStyle({height: "3px",
-          width: "3px",
-          backgroundColor: "white",
-          position: "absolute",
-          top: mouseY,
-          left: mouseX});
-        setC(2);
-        setInitX(mouseX);
-        setInitY(mouseY);
 
-      }else{}
-      if (currentC === 2){
-        setStyle2({height: "3px",
-        width: "3px",
-        backgroundColor: "white",
-        position: "absolute",
-        top: mouseY,
-        left: mouseX});
-        continuee();
-      }else{}
-  }
+    handleMouseMove = (event) => {
+            this.setState({mouseX: event.clientX});
+            this.setState({mouseY: event.clientY});
+    }
     
-    useEffect(() => {
-    const handleMouseMove = (event) => {
-      setMouseX(event.clientX);
-      setMouseY(event.clientY);
-      
-    };
+    componentDidMount(){
+        window.addEventListener('mousemove', this.handleMouseMove);
+    }
 
-    window.addEventListener('mousemove', handleMouseMove)})
-
-  return (
-    <>
-        {/* <button style={{color: "white", cursor: "pointer"}} onClick={sendMissle}>SEND</button> */}
-        <div className='mainView' onClick={sendMissle}>
-        <div style={currentStyle}></div>
-        <div style={currentStyle2}></div>
+    render() {
+    return (
+      <div>
+        <div className='mainView' onClick={this.click}>{this.state.mouseX}{" | "}{this.state.mouseY}</div>
         <img src={require("./media/missle1.png")} alt="missle1"/>
-        <img src={require("./media/missle1.png")} alt="missle1" style={currentStyle3}/>
-        </div>
-    </>
-  );
-}
+            <div style={{display: this.state.firstPoint,
+                    height: "3px",
+                    width: "3px",
+                    backgroundColor: "white",
+                    position: "absolute",
+                    top: this.state.initY,
+                    left: this.state.initX}}>
+            </div>
+            <div style={{display: this.state.secPoint,
+                    height: "3px",
+                    width: "3px",
+                    backgroundColor: "limeGreen",
+                    position: "absolute",
+                    top: this.state.targetY,
+                    left: this.state.targetX}}>
+            </div>
+        <button className='send'>Send</button>
+      </div>
+    );}}
 
 export default App;
