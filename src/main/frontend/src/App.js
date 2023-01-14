@@ -3,27 +3,28 @@ import React from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 
-
 function App() {
   const [mouseX, setMouseX] = React.useState();
   const [mouseY, setMouseY] = React.useState();
   const [initX, setInitX] = React.useState();
   const [initY, setInitY] = React.useState();
   const [currentStyle, setStyle] = React.useState();
-  const [currentStyle2, setStyle2] = React.useState();
+  const [currentStyle2, setStyle2] = React.useState({display: "none"});
   const [currentC, setC] = React.useState(1);
-  const [currentStyle3, setStyle3] = React.useState({width: "50px", height: "2px", backgroundColor: "transparent", position: "absolute"});
+  const [currentStyle3, setStyle3] = React.useState({display: "none"});
   const [currentBlow, setBlow] = React.useState(false);
 
   var id;
   async function createMissle() {
       var body = ({initX:initX, initY:initY, targetX:mouseX, targetY:mouseY});
       axios.post('http://localhost:8080/api/v1/createOrLocate', body)
-      .then((res) => {id = res.data; alert(id);
+      .then((res) => {id = res.data.id; alert(id);
           for (; res.data.blowUp === false;) {
               var body2 = {id:id};
               axios.post('http://localhost:8080/api/v1/createOrLocate', body2)
-              .then((res) => {
+              
+                alert("rendering")
+                App();
                   setStyle3({
                     width: "50px",
                     height: "2px",
@@ -32,7 +33,7 @@ function App() {
                     top: res.data.currentX,
                     left: res.data.currentY,
                 });
-              });
+              
           }
       })
     }
@@ -78,6 +79,7 @@ function App() {
         <div className='mainView' onClick={sendMissle}>
         <div style={currentStyle}></div>
         <div style={currentStyle2}></div>
+        <img src={require("./media/missle1.png")} alt="missle1"/>
         <img src={require("./media/missle1.png")} alt="missle1" style={currentStyle3}/>
         </div>
     </>

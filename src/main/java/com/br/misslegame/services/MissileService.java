@@ -9,7 +9,7 @@ import com.br.misslegame.models.Missile;
 public class MissileService {
     public static Integer i = 0;
     public static Missile[] missiles = new Missile[10];
-    public static Integer create(Missile missile){
+    public static Missile create(Missile missile){
 
         for (i = 0; missiles[i] != null; i++);
         missiles[i] = missile;
@@ -20,7 +20,7 @@ public class MissileService {
             MissileService.findDirection(i);
             MissileService.move(i);
         });
-        return i;
+        return missiles[i];
     };
     private static void move(Integer number) {
         float d = missiles[number].currentDir;

@@ -23,14 +23,14 @@ public class c1 {
     MissileService missileService;
 
     @GetMapping("/employees")
-    @CrossOrigin (origins = "http://localhost:8081")
+    @CrossOrigin (origins = "http://localhost:3000")
     public ResponseEntity<Employee> cc1 (){
         Employee employee = new Employee("Ghianzao", "Morelli", "The best");
         return ResponseEntity.ok(employee);
     }
 
     @PostMapping("/createOrLocate")
-    @CrossOrigin (origins = "http://localhost:8081")
+    @CrossOrigin (origins = "http://localhost:3000")
     public ResponseEntity<Object> newLoc(@Valid @RequestBody Missile missile) {
         if (missile.getId() != null){
             return ResponseEntity.ok(MissileService.locate(missile.id));
@@ -38,13 +38,13 @@ public class c1 {
     }
 
     @GetMapping("/getTest")
-    @CrossOrigin (origins = "http://localhost:8081")
+    @CrossOrigin (origins = "http://localhost:3000")
     public ResponseEntity<Integer> gt (){
         return ResponseEntity.ok(200);
     }
 
     // @PostMapping("/getCurrentLoc")
-    // @CrossOrigin (origins = "http://localhost:8081")
+    // @CrossOrigin (origins = "http://localhost:3000")
     // public ResponseEntity<Boolean> newLoc(@Valid @RequestBody Integer missileNumber) {
     //     backNewLoc.setinitX(newLoc.getinitX());
     //     backNewLoc.setinitY(newLoc.getinitY());
