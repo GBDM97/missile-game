@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { useEffect } from 'react';
 import './App.css'
+import axios from 'axios';
 
 class App extends Component {
 
@@ -15,12 +15,13 @@ class App extends Component {
             targetY: 0,
             click: 0,
             firstPoint: "none",
-            secPoint: "none"
+            secPoint: "none",
+            body1: "",
+            body2: ""
         };
       }
 
     click = () => {
-        console.log(this.state.mouseX)
         if (this.state.click === 0){
             this.setState({click: 1});
             this.setState({initX: this.state.mouseX});
@@ -32,6 +33,8 @@ class App extends Component {
             this.setState({targetX: this.state.mouseX});
             this.setState({targetY: this.state.mouseY});
             this.setState({secPoint: "flex"});
+            this.setState({body1: "initX:" + this.state.initX + ", initY:" + this.state.initY
+                                + ", targetX:" + this.state.targetX + ", targetY:" + this.state.targetY})
         }
     }
 
@@ -42,6 +45,13 @@ class App extends Component {
     
     componentDidMount(){
         window.addEventListener('mousemove', this.handleMouseMove);
+    }
+
+    sendMissle = () => {
+        
+        alert(this.state.body1)
+        axios.post('http://localhost:8080/api/v1/createOrLocate', this.state.body1)
+        .then((res) => {alert(res)});
     }
 
     render() {
@@ -65,7 +75,7 @@ class App extends Component {
                     top: this.state.targetY,
                     left: this.state.targetX}}>
             </div>
-        <button className='send'>Send</button>
+        <button className='send' onClick={this.sendMissle}>Send</button>
       </div>
     );}}
 
