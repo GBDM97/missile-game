@@ -36,16 +36,30 @@ public class MissileService {
                 float y = missiles[number].currentY;
                 float xIncrement = (d - 90)/90;
                 float yIncrement = (180 - d)/90;
-                x = x - xIncrement;
-                y = y + yIncrement;
+                x = x + xIncrement;
+                y = y - yIncrement;
                 missiles[number].currentX = (Integer) Math.round(x);
                 missiles[number].currentY = (Integer) Math.round(y);
             }
             if (d > 180 && d < 270){
-
+                float x = missiles[number].currentX;
+                float y = missiles[number].currentY;
+                float xIncrement = (270 - d)/90;
+                float yIncrement = (d - 180)/90;
+                x = x - xIncrement;
+                y = y - yIncrement;
+                missiles[number].currentX = (Integer) Math.round(x);
+                missiles[number].currentY = (Integer) Math.round(y);
             }
             if (d > 270 && d < 360){
-
+                float x = missiles[number].currentX;
+                float y = missiles[number].currentY;
+                float xIncrement = (d - 270)/90;
+                float yIncrement = (360 - d)/90;
+                x = x - xIncrement;
+                y = y + yIncrement;
+                missiles[number].currentX = (Integer) Math.round(x);
+                missiles[number].currentY = (Integer) Math.round(y);
             }
                 try{Thread.sleep(4000);}catch(Exception e){System.out.println(e);} 
         }
