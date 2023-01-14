@@ -19,27 +19,25 @@ function App() {
   async function createMissle() {
     var body = ({initX:initX, initY:initY, targetX:mouseX, targetY:mouseY});
     axios.post('http://localhost:8080/api/v1/createOrLocate', body)
-    .then((res) => {id = res.data; alert(id)});
+    .then((res) => {id = res.data; alert(id);
 
+    for (; res.data.blowUp === false;) {
+      var body2 = {id:currentId, initX:initX, inity:initY, targetX:targetX, targetY:targetY};
+      axios.post('http://localhost:8080/api/v1/createOrLocate', body2)
+      .then((res) => {
+        setCurrentX(res.data.currentX);
+        setCurrentY(res.data.currentY);
+        setStyle3({
+          width: "50px",
+          height: "2px",
+          backgroundColor: "transparent",
+          position: "absolute",
+          top: currentX,
+          left: currentY,
+        });
+      });
+    }})
 
-    // for (; currentBlow === false;) {
-    //   var body2 = {id:currentId, initX:initX, inity:initY, targetX:targetX, targetY:targetY};
-    //   axios.post('http://localhost:8080/api/v1/createOrLocate', body2)
-    //   .then((res) => {
-    //     setCurrentX(res.data.currentX);
-    //     setCurrentY(res.data.currentY);
-    //     setBlow(res.data.blowUp)
-    //     setStyle3({
-    //       width: "50px",
-    //       height: "2px",
-    //       backgroundColor: "transparent",
-    //       position: "absolute",
-    //       top: currentX,
-    //       left: currentY,
-    //     });
-    //   });
-    // }
-  }
   const continuee = () => {
     createMissle();
   }
