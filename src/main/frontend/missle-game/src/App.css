@@ -2,11 +2,13 @@
   padding: 0px;
   margin: 0px;
   background-color: black;
+  overflow: hidden;
 }
 
 .mainView {
   width: 100vw;
-  height: 50vh;
+  height: 100vh;
+  cursor: pointer;
 }
 
 .missle1{
@@ -25,4 +27,13 @@
   border-bottom: 60px solid transparent;
   
   border-left: 60px solid green;
+}
+
+.point{
+  height: 3px;
+  width: 3px;
+  background-color: white;
+  position: absolute;
+  top: 500px;
+  left:500px;
 }
