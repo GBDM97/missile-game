@@ -18,7 +18,7 @@ class App extends Component {
             secPoint: "none",
             body1: "",
             body2: "",
-            missles:[],
+            missle:{},
         };
       }
 
@@ -52,9 +52,18 @@ class App extends Component {
         console.log("sending: " + obj)
         axios.post('http://localhost:8080/api/v1/createOrLocate', obj)
         .then((res) => {
-            this.setState(state => ({missles:[...state.missles, res.data.id]}), () => {console.log(this.state.missles)});
-        }, 
-        );
+            this.setState(state => ({missle: [...state.missle, res.data]}), () => {console.log(this.state.missle)});
+        });
+        let blowUp = false;
+        const locate = () => {
+            let obj2 = Object.assign({id: this.state.missle[0].id})
+            axios.post('http://localhost:8080/api/v1/createOrLocate', obj2)
+            .then((res) =>{
+                this.setState({missle: res.data},()=>{console.log(this.state.missle)})
+            })
+            .then(blowUp = this.state.missle.blowUp);
+        }
+        if(blowUp === false){locate()} else{console.log("missle blewUp")}
     }
 
     arrayTest = () => {
@@ -68,7 +77,7 @@ class App extends Component {
             <div style={{display: this.state.firstPoint,
                     height: "3px",
                     width: "3px",
-                    backgroundColor: "white",
+                    bac5kgroundColor: "white",
                     position: "absolute",
                     top: this.state.initY,
                     left: this.state.initX}}>
