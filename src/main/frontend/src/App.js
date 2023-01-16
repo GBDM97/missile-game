@@ -77,7 +77,7 @@ class App extends Component {
             <div style={{display: this.state.firstPoint,
                     height: "3px",
                     width: "3px",
-                    bac5kgroundColor: "white",
+                    backgroundColor: "white",
                     position: "absolute",
                     top: this.state.initY,
                     left: this.state.initX}}>
@@ -90,7 +90,7 @@ class App extends Component {
                     top: this.state.targetY,
                     left: this.state.targetX}}>
             </div>
-        <button className='send' onClick={this.sendMissle}>Send</button>
+        {/* <button className='send' onClick={this.sendMissle}>Send</button> */}
       </div>
     );}}
 
