@@ -17,41 +17,47 @@ class App extends Component {
             firstPoint: "none",
             secPoint: "none",
             body1: "",
-            body2: ""
+            body2: "",
+            missles:[],
         };
       }
 
     click = () => {
         if (this.state.click === 0){
-            this.setState({click: 1});
-            this.setState({initX: this.state.mouseX});
-            this.setState({initY: this.state.mouseY});
-            this.setState({firstPoint: "flex"});
-        }
-        if (this.state.click === 1){
-            this.setState({click: 0});
-            this.setState({targetX: this.state.mouseX});
-            this.setState({targetY: this.state.mouseY});
-            this.setState({secPoint: "flex"});
-            this.setState({body1: "initX:" + this.state.initX + ", initY:" + this.state.initY
-                                + ", targetX:" + this.state.targetX + ", targetY:" + this.state.targetY})
-        }
+            this.setState({
+                click: 1,
+                initX: window.event.clientX,
+                initY: window.event.clientY,
+                firstPoint: "flex"});
+        }else{
+            this.setState({
+            targetX: window.event.clientX,
+            targetY: window.event.clientY,
+            click: 0,
+            secPoint: "flex"});
+            this.sendMissle();
+        }  
     }
 
     handleMouseMove = (event) => {
-            this.setState({mouseX: event.clientX});
-            this.setState({mouseY: event.clientY});
+            this.setState({mouseX: event.clientX, mouseY: event.clientY});
+            
     }
-    
     componentDidMount(){
         window.addEventListener('mousemove', this.handleMouseMove);
     }
 
     sendMissle = () => {
-        
-        alert(this.state.body1)
-        axios.post('http://localhost:8080/api/v1/createOrLocate', this.state.body1)
-        .then((res) => {alert(res)});
+        let obj = Object.assign({initX:this.state.initX, initY: this.state.initY, targetX:window.event.clientX, targetY:window.event.clientY})
+        console.log("sending: " + obj)
+        axios.post('http://localhost:8080/api/v1/createOrLocate', obj)
+        .then((res) => {
+            this.setState(state => ({missles:[...state.missles, res.data.id]}), () => {console.log(this.state.missles)});
+        }, 
+        );
+    }
+
+    arrayTest = () => {
     }
 
     render() {
