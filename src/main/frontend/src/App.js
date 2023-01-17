@@ -18,7 +18,7 @@ class App extends Component {
             secPoint: "none",
             body1: "",
             body2: "",
-            missle: [{id: 0},{id: 1}],
+            missle: [],
         };
       }
 
@@ -49,22 +49,25 @@ class App extends Component {
 
     sendMissle = () => {
         let obj = Object.assign({initX:this.state.initX, initY: this.state.initY, targetX:window.event.clientX, targetY:window.event.clientY})
-        console.log("sending: " + obj)
+        console.log(obj)
         axios.post('http://localhost:8080/api/v1/createOrLocate', obj)
         .then((res) => {
-            this.setState(state => ({missle: [...state.missle, res.data]}), () => {locate()});
+            this.setState(state => ({missle: res.data}), () => {
+                console.log(this.state.missle);
+                locate()
+            });
         });
         
         const locate = () => {
-            let obj2 = Object.assign({id: this.state.missle[0].id})
+            let obj2 = Object.assign({id: this.state.missle.id})
             axios.post('http://localhost:8080/api/v1/createOrLocate', obj2)
             .then((res) =>{
-                this.setState({missle: res.data},()=>{console.log(this.state.missle); continuee()})
+                this.setState({missle: res.data},()=>{console.log(res.data); continuee()})
             })
         }
         
         const continuee = () => {
-            if(this.state.missle.blowUp === false){alert("sending again");setTimeout(locate(),1000)} else{console.log("missle blewUp")};
+            if(this.state.missle.blowUp === false){setTimeout(locate, 100)} else{console.log("missle blewUp")};
         }
 
     }
@@ -76,7 +79,12 @@ class App extends Component {
     return (
       <div>
         <div className='mainView' onClick={this.click}>{this.state.mouseX}{" | "}{this.state.mouseY}</div>
-        <img src={require("./media/missle1.png")} alt="missle1"/>
+        <img src={require("./media/missle1.png")} alt="missle1" style={{
+            position: 'absolute',
+            top: this.state.missle.currentY,
+            left: this.state.missle.currentX,
+            transform: `rotate(${this.state.missle.currentDir}deg)`
+        }}/>
             <div style={{display: this.state.firstPoint,
                     height: "3px",
                     width: "3px",

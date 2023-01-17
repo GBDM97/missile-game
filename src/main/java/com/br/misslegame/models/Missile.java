@@ -1,18 +1,16 @@
 package com.br.misslegame.models;
 
-import javax.validation.constraints.NotNull;
-
 import lombok.Data;
 
 @Data
 public class Missile {
-    public Integer initX;
-    public Integer initY;
-    public Integer targetX;
-    public Integer targetY;
+    public Double initX;
+    public Double initY;
+    public Double targetX;
+    public Double targetY;
     public Integer id;
-    public Integer currentX;
-    public Integer currentY;
+    public Double currentX;
+    public Double currentY;
     public float currentDir;
     public boolean blowUp = false;
 }
