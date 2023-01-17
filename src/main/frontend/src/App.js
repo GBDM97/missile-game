@@ -81,9 +81,10 @@ class App extends Component {
         <div className='mainView' onClick={this.click}>{this.state.mouseX}{" | "}{this.state.mouseY}</div>
         <img src={require("./media/missle1.png")} alt="missle1" style={{
             position: 'absolute',
-            top: this.state.missle.currentY,
-            left: this.state.missle.currentX,
-            transform: `rotate(${this.state.missle.currentDir}deg)`
+            top: this.state.missle.currentY - 5,
+            left: this.state.missle.currentX - 15,
+            transform: `rotate(${this.state.missle.currentDir}deg)`,
+            transformOrigin: '17px 6.5px'
         }}/>
             <div style={{display: this.state.firstPoint,
                     height: "3px",

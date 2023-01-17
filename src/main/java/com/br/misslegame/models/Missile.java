@@ -4,13 +4,13 @@ import lombok.Data;
 
 @Data
 public class Missile {
-    public Double initX;
-    public Double initY;
-    public Double targetX;
-    public Double targetY;
+    public Float initX;
+    public Float initY;
+    public Float targetX;
+    public Float targetY;
     public Integer id;
-    public Double currentX;
-    public Double currentY;
+    public Float currentX;
+    public Float currentY;
     public float currentDir;
     public boolean blowUp = false;
 }

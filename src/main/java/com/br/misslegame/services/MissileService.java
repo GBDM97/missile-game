@@ -23,46 +23,47 @@ public class MissileService {
         return missiles[i];
     };
     private static void move(Integer number) {
-        Double x = (double) missiles[number].currentX;
-        Double y = (double) missiles[number].currentY;
+        float x = missiles[number].currentX;
+        float y = missiles[number].currentY;
         for (;(missiles[number].currentX != missiles[number].targetX || missiles[number].currentY != missiles[number].targetY);) {
             if (d >= 0.0 && d < 90.0){
-                Double xIncrement = (double) d/90;
-                Double yIncrement = (double) (90 - d)/90;
+                float xIncrement = d/90;
+                float yIncrement = (90 - d)/90;
                 x = x + xIncrement;
                 y = y + yIncrement;
                 missiles[number].currentX = x;
                 missiles[number].currentY = y;
             }
             if (d >= 90.0 && d < 180.0){
-                Double xIncrement = (double) (180 - d)/90;
-                Double yIncrement = (double) (d - 90)/90;
+                float xIncrement = (180 - d)/90;
+                float yIncrement = (d - 90)/90;
                 x = x + xIncrement;
                 y = y - yIncrement;
                 missiles[number].currentX = x;
                 missiles[number].currentY = y;
             }
             if (d >= 180.0 && d < 270.0){
-                Double xIncrement = (double) (d - 180)/90;
-                Double yIncrement = (double) (270 - d)/90;
+                float xIncrement = (d - 180)/90;
+                float yIncrement = (270 - d)/90;
                 x = x - xIncrement;
                 y = y - yIncrement;
                 missiles[number].currentX = x;
                 missiles[number].currentY = y;
             }
             if (d >= 270.0 && d < 360.0){
-                Double xIncrement = (double) (360 - d)/90;
-                Double yIncrement = (double) (d - 270)/90;
+                float xIncrement = (360 - d)/90;
+                float yIncrement = (d - 270)/90;
                 x = x - xIncrement;
                 y = y + yIncrement;
                 missiles[number].currentX = x;
                 missiles[number].currentY = y;
             }
-            Double relativeX = missiles[number].targetX - missiles[number].currentX;
-            Double relativeY = missiles[number].targetY - missiles[number].currentY;
+            float relativeX = missiles[number].targetX - missiles[number].currentX;
+            float relativeY = missiles[number].targetY - missiles[number].currentY;
             float dist = (float) StrictMath.hypot(relativeX, relativeY);
             try{Thread.sleep(50);}catch(Exception e){System.out.println(e);}
             if(dist <= 5.0){break;}
+            MissileService.findDirection(i);
         }
         missiles[number].blowUp = true;
         try{Thread.sleep(5000);}catch(Exception e){System.out.println(e);};
@@ -84,8 +85,8 @@ public class MissileService {
     };
 
     private static void findDirection(Integer number) {
-        Double relativeX = missiles[number].targetX - missiles[number].initX;
-        Double relativeY = missiles[number].targetY - missiles[number].initY;
+        float relativeX = missiles[number].targetX - missiles[number].currentX;
+        float relativeY = missiles[number].targetY - missiles[number].currentY;
         var angle = (float)Math.toDegrees(Math.atan2(relativeY, relativeX));
         var outAngle = angle;
         if(angle >= 0){angle = (180-angle) + 270;}
