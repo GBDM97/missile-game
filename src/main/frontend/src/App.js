@@ -18,7 +18,7 @@ class App extends Component {
             secPoint: "none",
             body1: "",
             body2: "",
-            missle:{},
+            missle: [{id: 0},{id: 1}],
         };
       }
 
@@ -52,18 +52,21 @@ class App extends Component {
         console.log("sending: " + obj)
         axios.post('http://localhost:8080/api/v1/createOrLocate', obj)
         .then((res) => {
-            this.setState(state => ({missle: [...state.missle, res.data]}), () => {console.log(this.state.missle)});
+            this.setState(state => ({missle: [...state.missle, res.data]}), () => {locate()});
         });
-        let blowUp = false;
+        
         const locate = () => {
             let obj2 = Object.assign({id: this.state.missle[0].id})
             axios.post('http://localhost:8080/api/v1/createOrLocate', obj2)
             .then((res) =>{
-                this.setState({missle: res.data},()=>{console.log(this.state.missle)})
+                this.setState({missle: res.data},()=>{console.log(this.state.missle); continuee()})
             })
-            .then(blowUp = this.state.missle.blowUp);
         }
-        if(blowUp === false){locate()} else{console.log("missle blewUp")}
+        
+        const continuee = () => {
+            if(this.state.missle.blowUp === false){alert("sending again");setTimeout(locate(),1000)} else{console.log("missle blewUp")};
+        }
+
     }
 
     arrayTest = () => {
