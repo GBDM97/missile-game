@@ -1,5 +1,5 @@
 import React from 'react'; 
-const missiles = () => {
+const menu = () => {
 
     const click = () => {}
 
@@ -8,4 +8,4 @@ const missiles = () => {
         <div className='send' onClick={click}>Launch Missile</div>
     </>
     )}; 
-export default missiles
+export default menu
