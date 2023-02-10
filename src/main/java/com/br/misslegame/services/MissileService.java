@@ -14,8 +14,6 @@ public class MissileService {
         for (i = 0; missiles[i] != null; i++);
         missiles[i] = missile;
         missiles[i].id = i;
-        missiles[i].currentX = missiles[i].initX;
-        missiles[i].currentY = missiles[i].initY;
         CompletableFuture.runAsync(() -> {
             MissileService.findDirection(i);
             MissileService.move(i);
@@ -23,46 +21,46 @@ public class MissileService {
         return missiles[i];
     };
     private static void move(Integer number) {
-        float x = missiles[number].currentX;
-        float y = missiles[number].currentY;
+        Double x = missiles[number].currentX;
+        Double y = missiles[number].currentY;
         for (;(missiles[number].currentX != missiles[number].targetX || missiles[number].currentY != missiles[number].targetY);) {
             if (d >= 0.0 && d < 90.0){
-                float xIncrement = d/90;
-                float yIncrement = (90 - d)/90;
+                Double xIncrement = (double)d/90;
+                Double yIncrement = (double)(90 - d)/90;
                 x = x + xIncrement;
                 y = y + yIncrement;
+                missiles[number].currentX = x;
+                missiles[number].currentY = y;
+            }
+            if (d >= -90.0 && d < 0.0){
+                Double xIncrement = (double)(180 - d)/90;
+                Double yIncrement = (double)(d - 90)/90;
+                x = x + xIncrement;
+                y = y - yIncrement;
                 missiles[number].currentX = x;
                 missiles[number].currentY = y;
             }
             if (d >= 90.0 && d < 180.0){
-                float xIncrement = (180 - d)/90;
-                float yIncrement = (d - 90)/90;
-                x = x + xIncrement;
-                y = y - yIncrement;
-                missiles[number].currentX = x;
-                missiles[number].currentY = y;
-            }
-            if (d >= 180.0 && d < 270.0){
-                float xIncrement = (d - 180)/90;
-                float yIncrement = (270 - d)/90;
+                Double xIncrement = (double)(d - 180)/90;
+                Double yIncrement = (double)(270 - d) * 90;
                 x = x - xIncrement;
                 y = y - yIncrement;
                 missiles[number].currentX = x;
                 missiles[number].currentY = y;
             }
-            if (d >= 270.0 && d < 360.0){
-                float xIncrement = (360 - d)/90;
-                float yIncrement = (d - 270)/90;
+            if (d >= -180.0 && d < -90.0){
+                Double xIncrement = (double)(360 - d)/90;
+                Double yIncrement = (double)(d - 270)/90;
                 x = x - xIncrement;
                 y = y + yIncrement;
                 missiles[number].currentX = x;
                 missiles[number].currentY = y;
             }
-            float relativeX = missiles[number].targetX - missiles[number].currentX;
-            float relativeY = missiles[number].targetY - missiles[number].currentY;
-            float dist = (float) StrictMath.hypot(relativeX, relativeY);
-            try{Thread.sleep(50);}catch(Exception e){System.out.println(e);}
-            if(dist <= 5.0){break;}
+            Double relativeX = missiles[number].targetX - missiles[number].currentX;
+            Double relativeY = missiles[number].targetY - missiles[number].currentY;
+            
+            try{Thread.sleep(10);}catch(Exception e){System.out.println(e);}
+            if(dist <= 30.0){break;}
             MissileService.findDirection(i);
         }
         missiles[number].blowUp = true;
@@ -85,14 +83,11 @@ public class MissileService {
     };
 
     private static void findDirection(Integer number) {
-        float relativeX = missiles[number].targetX - missiles[number].currentX;
-        float relativeY = missiles[number].targetY - missiles[number].currentY;
+        Double relativeX = missiles[number].targetX - missiles[number].initX;
+        Double relativeY = missiles[number].targetY - missiles[number].initY;
         var angle = (float)Math.toDegrees(Math.atan2(relativeY, relativeX));
-        var outAngle = angle;
-        if(angle >= 0){angle = (180-angle) + 270;}
-        if(angle >= 360){angle =angle - 360;}
-        if(angle < 0){angle = 90 - angle;}
-        missiles[number].currentDir = (float)outAngle;
+        missiles[number].currentDir = (double) angle;
+        missiles[number].currentDist = (double) StrictMath.hypot(relativeX, relativeY);
         d = angle;
     }
 }

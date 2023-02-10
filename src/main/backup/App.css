@@ -2,6 +2,7 @@
   padding: 0px;
   margin: 0px;
   background-color: black;
+  color: white;
 }
 
 .mainView {
@@ -30,4 +31,10 @@
   border-radius: 3px;
   padding: 3px;
   cursor: pointer;
+}
+
+.missle1{
+  position: absolute;
+  top: 100px;
+  rotate: 90deg;
 }

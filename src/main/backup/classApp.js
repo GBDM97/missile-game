@@ -40,8 +40,7 @@ class App extends Component {
     }
 
     handleMouseMove = (event) => {
-            this.setState({mouseX: event.clientX, mouseY: event.clientY});
-            
+            this.setState({mouseX: event.clientX, mouseY: event.clientY}); 
     }
     componentDidMount(){
         window.addEventListener('mousemove', this.handleMouseMove);
@@ -72,14 +71,34 @@ class App extends Component {
 
     }
 
-    arrayTest = () => {
-    }
+    selectMissle = (id) => {
+        var index = this.state.missle.findIndex(x=> x.id === id);
+        if (this.state.missle[index].select === false){
+            this.setState({
+                items: [
+                ...this.state.items.slice(0,index),
+                { ...this.state.items[index], selected: true },  
+                ...this.state.items.slice(index+1)
+                ]
+            });
+        }else{
+            this.setState({
+                items: [
+                ...this.state.items.slice(0,index),
+                { ...this.state.items[index], selected: false },  
+                ...this.state.items.slice(index+1)
+                ]
+            });
+        }
+      }
 
     render() {
     return (
       <div>
         <div className='mainView' onClick={this.click}>{this.state.mouseX}{" | "}{this.state.mouseY}</div>
-        <img src={require("./media/missle1.png")} alt="missle1" style={{
+        <img src={require("./media/missle1.png")} alt="missle1" 
+            // onClick={this.selectMissle(this.state.missle[0].id)}
+            style={{
             position: 'absolute',
             top: this.state.missle.currentY - 5,
             left: this.state.missle.currentX - 15,
@@ -102,6 +121,7 @@ class App extends Component {
                     top: this.state.targetY,
                     left: this.state.targetX}}>
             </div>
+            
         {/* <button className='send' onClick={this.sendMissle}>Send</button> */}
       </div>
     );}}
