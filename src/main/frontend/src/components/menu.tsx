@@ -1,11 +1,13 @@
 import React from 'react'; 
-const menu = () => {
+import { GameContext } from '../context/gameContext';
 
+const Menu = () => {
     const click = () => {}
+    const { dark, toggleDark } = React.useContext(GameContext);
 
     return(
     <>
-        <div className='send' onClick={click}>Launch Missile</div>
+        <div className='send' onClick={toggleDark}>{dark ? "true":"false"}</div>
     </>
     )}; 
-export default menu
+export default Menu

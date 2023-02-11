@@ -9,6 +9,6 @@ export const defaultState = {
     dark: false,
   };
   
-export const GameContext = React.createContext<IGameContext | null>(defaultState);
+export const GameContext = React.createContext<IGameContext>(defaultState);
     
 

@@ -3,6 +3,7 @@ import GameScreen from '../PagesDivisions/gameScreen';
 import SideBar from '../PagesDivisions/sideBar';
 
 const main = () => {
+    
     return(
     <>
         <GameScreen/>

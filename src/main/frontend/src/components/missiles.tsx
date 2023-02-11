@@ -1,7 +1,10 @@
 import React from 'react'; 
 import '../App.css';
+import { GameContext } from '../context/gameContext';
 
-const missiles = () => {
+const Missiles = () => {
+    const { dark, toggleDark } = React.useContext(GameContext);
+
     return(
     <>
         <div style={ {
@@ -14,11 +17,12 @@ const missiles = () => {
                         justifyContent: 'center',
                         rotate: '-45deg'
               }}>
-                <img src={require("../media/missle1.png")} alt="missle1" className='missle1'/>
+                <img src={require("../media/missle1.png")} alt="missle1" className='missle1' onClick={toggleDark}/>
+                {dark ? "true":"false"}
         </div>
     
     </>
     )
 }; 
 
-export default missiles
+export default Missiles
