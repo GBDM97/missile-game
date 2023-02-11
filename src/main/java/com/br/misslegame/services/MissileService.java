@@ -90,4 +90,5 @@ public class MissileService {
         missiles[number].currentDist = (double) StrictMath.hypot(relativeX, relativeY);
         d = angle;
     }
+    
 }
