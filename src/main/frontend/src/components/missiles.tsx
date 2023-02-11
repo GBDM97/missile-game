@@ -1,13 +1,14 @@
 import React from 'react'; 
 import '../App.css';
-import { GameContext } from '../context/gameContext';
+import { GameContext } from '../Context/gameContext';
 
 const Missiles = () => {
     const { dark, toggleDark } = React.useContext(GameContext);
+    const { test, toggleTest } = React.useContext(GameContext);
 
     return(
     <>
-        <div style={ {
+        <div onClick={()=>toggleTest(4)} style={ {
                         position: 'relative',
                         height: '200vw',
                         width: '17px',
@@ -17,7 +18,7 @@ const Missiles = () => {
                         justifyContent: 'center',
                         rotate: '-45deg'
               }}>
-                <img src={require("../media/missle1.png")} alt="missle1" className='missle1' onClick={toggleDark}/>
+                <img src={require("../Media/missle1.png")} alt="missle1" className='missle1'/>
                 {dark ? "true":"false"}
         </div>
     
